@@ -1,0 +1,111 @@
+USE businessregistry;
+
+INSERT INTO doy VALUES
+(1, '1980','zathin@doy.gr','DOY Z Athinwn'),
+(2, '1988','apatrwn@doy.gr','DOY A PATRWN'),
+(3, '1988','bpatrwn@doy.gr','DOY B PATRWN'),
+(4, '1983','korin@doy.gr','DOY KORINTHOU'),
+(5, '1989','volos@doy.gr','DOY Volou'),
+(6, '1990','tripoli@doy.gr','DOY Tripolis');
+
+INSERT INTO business VALUES 
+('Vasilopoulos Nikolaos', 'Vasilopoulos','1995-05-20 00:00',26400,'Volos',20004,120,NULL,5),
+('Tzatzadaki Maria', 'Tzatzadakis','1992-10-02 00:00',20001,'Patra',24222,58,NULL,2),
+('Tzatzadaki Maria', 'Tzatzadakis','1998-08-04 00:00',31200,'Patra',24228,180,20001,3),
+('Tzatzadaki Maria', 'Tzatzadakis Ypokatastima 2','1998-08-04 00:00',31201,'Patra',24228,180,31200,3),
+('Papadopoulos Ioannis', 'Papadopoulou Mpiskota','2000-01-15 00:00',18777,'Athina',27366,280,NULL,1),
+('Kallimani Athanasia', 'Thalassina Kallimanis','2000-03-17 00:00',54874,'Korinthos',22008,71,NULL,4),
+('Xristopoulos Ioannis','Chris','2010-05-05 00:00',80000,'Athina',24111,56,NULL,1),
+('Kallimani Athanasia', 'Thalassina Kallimanis Kalamatas','2000-03-25 00:00',54875,'Kalamata',25005,23,54874,4),
+('Kallimani Athanasia', 'Thalassina Kallimanis Spartis','2000-04-17 00:00',54876,'Sparti',28667,34,54874,4),
+('Kallimani Athanasia', 'Thalassina Kallimanis Spartis A tomeas','2000-04-17 00:00',54877,'Sparti',28667,34,54876,4),
+('Kallimani Athanasia', 'Thalassina Kallimanis Spartis B tomeas','2000-04-18 00:00',54878,'Sparti',28667,34,54876,4),
+('Kallimani Athanasia', 'Thalassina Kallimanis Spartis A tomeas Syskevastirio','2000-04-24 00:00',54879,'Sparti',28667,34,54877,4);
+
+
+INSERT INTO statutefile VALUES 
+('C:\docs\statute\ ',8,26400,0,'2011-02-20 14:35:24'),
+('C:\falekos1\arxeio\ ',3,18777,1,'2012-10-05 09:30:14'),
+('C:\fakelos2\arxeio2\ ',10,54874,1,'2011-02-20 20:30:55'),
+('C:\falekos3\arxeio3\ ',5,54874,1,'2011-02-20 16:06:47');
+
+INSERT INTO person VALUES
+('Xristopoulos Panagioths','100000012','xristo@mail.com','cv 1','MALE'),
+('Xristou Theodwra','100000250','theodxristo@gmail.com','cv 2','FEMALE'),
+('Papadopoulou Niki','200000333','papadop@gmail.com','cv 3','FEMALE'),
+('Dimitriou Vasiliki','200001006','dimitr@hotmail.com','cv 4','FEMALE'),
+('Kostopoulos Stavros','210000050','kostopoulos@hotmail.com','cv 5','MALE'),
+('Anagnostopoulos Xristos','103640089','anagnos@hotmail.gr','cv 6','MALE'),
+('Papas Mairy','181560050','mapapado@yahoo.com','cv 7','FEMALE'),
+('Zaxariou Iosif','172630020','zaxar@mail.com','cv 8','MALE'),
+('Zaxariou Maria','172630021','zaxarm@mail.com','cv 8.1','FEMALE'),
+('Zaxariou Iwanna','172630022','zaxari@mail.com','cv 8.2','FEMALE'),
+('Neofytou Neofyta','105200066','neofytou@gmail.com','cv 9','FEMALE'),
+('Neofytou Eleni','105200067','neofytoue@gmail.com','cv 10','FEMALE'),
+('Neofytos Kwstas','105200068','neofytos@gmail.com','cv 11','MALE');
+
+INSERT INTO auditor VALUES
+('200000333',560,'TAKTIKOS','2001-11-12 00:00'),
+('200001006',200,'TAKTIKOS','2010-04-03 00:00'),
+('210000050',120,'ANAPLHRWMATIKOS','2009-02-20 00:00'),
+('100000250',122,'ANAPLHRWMATIKOS','2004-09-25 00:00');
+
+INSERT INTO auditor_check VALUES
+(26400,'200001006','2010-08-01 00:00','2011-09-01 00:00'),
+(31200,'100000250','2004-10-18 00:00','2006-12-05 00:00'),
+(20001,'200000333','2002-01-08 00:00','2007-01-08 00:00'),
+(18777,'210000050','2009-05-10 00:00','2011-02-20 00:00'),
+(80000,'200000333','2009-02-02 00:00','2011-03-03 00:00'),
+(18777,'200001006','2010-09-09 00:00','2012-05-05 00:00'),
+(31200,'200000333','2011-02-10 00:00','2012-03-03 00:00'),
+(54874,'200000333','2011-03-02 00:00','2011-03-13 00:00'),
+(54877,'200001006','2011-04-09 00:00','2012-05-05 00:00'),
+(54878,'210000050','2011-05-10 00:00','2012-03-03 00:00'),
+(31201,'100000250','2011-12-11 00:00','2012-05-05 00:00');
+
+INSERT INTO shareholder VALUES
+('100000012','ellhnikhs'),
+('181560050','agglikhs'),
+('172630020','evraikhs'),
+('172630021','evraikhs'),
+('172630022','evraikhs'),
+('105200066','kypriakhs'),
+('105200067','kypriakhs'),
+('105200068','kypriakhs');
+
+INSERT INTO share VALUES
+(54874,'100000012',25.00,1),
+(26400,'172630020',10.50,0),
+(26400,'172630021',30.00,1),
+(26400,'172630022',40.00,1),
+(20001,'181560050',50.00,1),
+(18777,'105200066',35.00,1),
+(18777,'105200067',25.00,1),
+(18777,'105200068',40.00,1),
+(18777,'181560050',15.00,1),
+(18777,'172630020',15.00,1),
+(18777,'172630022',05.00,1),
+(18777,'172630021',11.00,1),
+(31200,'172630020',120.00,1);
+
+INSERT INTO telephones VALUES
+('2610222555','100000012'),
+('2105566880','100000250'),
+('2610333000','200000333'),
+('2106662220','103640089'),
+('2104440002','200001006');
+
+INSERT INTO chamber VALUES
+('Patra','Epimelitirio Axaias','Emporiko'),
+('Volos','Epimelitirio Volou','Emporiko'),
+('Athina','Biotexniko Epimelitirio','Biotexniko'),
+('Korinthos','Epimelitirio Korinthou','Emporiko'),
+('Athina','Ksenodoxeiako Epimelhthrio','Ksenodoxeiako'),
+('Patra','Texniko Epimelitirio Patrwn','Texniko');
+
+INSERT INTO belongs VALUES
+(18777,'Epimelitirio Volou'),
+(20001,'Epimelitirio Axaias'),
+(54874,'Epimelitirio Korinthou'),
+(20001,'Epimelitirio Korinthou'),
+(31200,'Epimelitirio Axaias');

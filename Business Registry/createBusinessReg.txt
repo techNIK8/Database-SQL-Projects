@@ -1,0 +1,115 @@
+DROP DATABASE if exists businessregistry;
+CREATE DATABASE businessregistry DEFAULT CHARSET=greek;
+USE businessregistry;
+
+CREATE TABLE IF NOT EXISTS doy(
+  id_kataxorisis int NOT NULL AUTO_INCREMENT,
+  establish_year year(4) NOT NULL,
+  url varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
+  PRIMARY KEY (id_kataxorisis)
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS business(
+  businessname varchar(250) NOT NULL,
+  title varchar(250) NOT NULL,
+  registerdate datetime NOT NULL,
+  id int NOT NULL,
+  city varchar(50) NOT NULL,
+  tk varchar(10) NOT NULL,
+  number varchar(20) NOT NULL,
+  branch int,
+  doy_id int NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (branch) REFERENCES business(id)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (doy_id) REFERENCES doy(id_kataxorisis)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS statutefile(
+  path varchar(250) NOT NULL,
+  size int NOT NULL,
+  bus_id int NOT NULL,
+  publicity boolean NOT NULL,
+  registerdate datetime NOT NULL,
+  PRIMARY KEY (path,bus_id),
+  FOREIGN KEY (bus_id) REFERENCES business(id)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS person(
+  name varchar(100) NOT NULL,
+  afm char(9) NOT NULL,
+  email varchar(50) NOT NULL,
+  cv text NOT NULL,
+  genre ENUM('MALE','FEMALE') NOT NULL,
+  PRIMARY KEY (afm)
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS auditor(
+  person_afm char(9) NOT NULL,
+  soel int NOT NULL,
+  type ENUM('ANAPLHRWMATIKOS','TAKTIKOS') NOT NULL,
+  service_start_date datetime NOT NULL,
+  PRIMARY KEY (person_afm),
+  FOREIGN KEY (person_afm) REFERENCES person(afm)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS auditor_check(
+  bus_id int NOT NULL,
+  afm_auditor char(9) NOT NULL,
+  startdate datetime NOT NULL,
+  enddate datetime NOT NULL,
+  PRIMARY KEY (bus_id,afm_auditor),
+  FOREIGN KEY (bus_id) REFERENCES business(id)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (afm_auditor) REFERENCES auditor(person_afm)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS shareholder(
+  person_afm char(9) NOT NULL,
+  nationality varchar(50) NOT NULL,
+  PRIMARY KEY (person_afm),
+  FOREIGN KEY (person_afm) REFERENCES person(afm)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS share(
+  bus_id int NOT NULL,
+  afm_shareholder char(9) NOT NULL,
+  percentage float(5,2) NOT NULL,
+  ds_member boolean NOT NULL,
+  PRIMARY KEY (bus_id,afm_shareholder),
+  FOREIGN KEY (bus_id) REFERENCES business(id)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (afm_shareholder) REFERENCES shareholder(person_afm)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS telephones(
+  telephone_number char(10) NOT NULL,
+  person_afm char(9) NOT NULL,
+  PRIMARY KEY (person_afm,telephone_number),
+  FOREIGN KEY (person_afm) REFERENCES person(afm)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS chamber(
+  edra varchar(20) NOT NULL,
+  name varchar(50) NOT NULL,
+  type varchar(50) NOT NULL,
+  PRIMARY KEY (name)
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE IF NOT EXISTS belongs(
+  bus_id int NOT NULL,
+  ch_name varchar(50) NOT NULL,
+  PRIMARY KEY (bus_id,ch_name),
+  FOREIGN KEY (bus_id) REFERENCES business(id)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ch_name) REFERENCES chamber(name)
+  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;

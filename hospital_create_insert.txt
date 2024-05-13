@@ -1,0 +1,69 @@
+DROP DATABASE IF EXISTS hospital;
+CREATE DATABASE hospital;
+USE DATABASE hospital;
+
+CREATE TABLE doctor(
+doctor_id INT(9) AUTO INCREMENT NOT NULL,
+doctor_name VARCHAR(25) default 'unknown' NOT NULL,
+doctor_surname VARCHAR(25) default 'unknown' NOT NULL,
+doctor_gender ENUM('male','female') NOT NULL,
+doctor_ar_tayt VARCHAR(25) default 'unknown' NOT NULL,
+doctor_street VARCHAR(25) default 'unknown' NOT NULL,
+doctor_street_number INT(3) UNSIGNED NOT NULL,
+doctor_city VARCHAR(25) 'unknown' NOT NULL,
+doctor_TK INT(5) NOT NULL,
+doctor_office_number INT(2) NOT NULL,
+PRIMARY KEY(doctor_id)
+)Engine=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE patient(
+patient_id INT(9) AUTO INCREMENT NOT NULL,
+patient_name VARCHAR(25) default 'unknown' NOT NULL,
+patient_surname VARCHAR(25) default 'unknown' NOT NULL,
+patient_gender ENUM('male','female') NOT NULL,
+patient_street_number INT(3) UNSIGNED default '0' NOT NULL
+patient_clinic VARCHAR(25) NOT NULL
+PRIMARY KEY(patient_id)
+CONSTRAINT PATIENT_CLINIC_CONSTRAINT
+FOREIGN KEY (patient_clinic) REFERENCES clinic(clinic_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+)Engine=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE nurse_works(
+nurse_id INT(9) NOT NULL
+nurse_clinic VARCHAR(25) NOT NULL
+PRIMARY KEY (nurse_id, nurse_clinic)
+CONSTRAINT nurse_attributes
+FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE 
+FOREIGN KEY (nurse_clinic) REFERENCES clinic(clinic_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+
+CREATE TABLE diploma(
+doctor_id_who_has_diploma VARCHAR(9) NOT NULL,
+diploma_name VARCHAR(9) NOT NULL,
+diploma_date DATE,
+diploma_speciality ENUM('A' , 'B' , 'C');
+PRIMARY KEY (doctor_id_who_has_diploma , diploma_name),
+CONSTRAINT diploma_attributes,
+FOREIGN KEY (doctor_id_who_has_diploma) REFERENCES doctor(doctor_id),
+ON DELETE CASCADE,
+ON UPDATE RESTRICT,
+)Engine=InnoDB DEFALUT CHARSET=utf8;
+ 
+CREATE TABLE doctor_works(
+doctor_id INT(9) NOT NULL,
+clinic_name VARCHAR(25) NOT NULL,
+PRIMARY KEY (doctor_id , clinic_name),
+CONTSRAINT doctor_works
+FOREIGN KEY (doctor_id) REFERENCES doctr(doctor_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+)engine=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
